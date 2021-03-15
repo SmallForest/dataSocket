@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var wsurl = 'ws://localhost:2022/ws';
+    var websocket;
+    if (window.WebSocket) {
+        websocket = new WebSocket(wsurl);
+
+        //连接建立
+        websocket.onopen = function (evevt) {
+            console.log("恭喜🌹！！，成功连接上ws");
+            let s = JSON.stringify({name:"lihua"})
+            websocket.send(s)
+        }
+        //收到消息
+        websocket.onmessage = function (event) {
+            console.log("接受到消息", event)
+        }
+
+        //发生错误
+        websocket.onerror = function (event) {
+            console.log("Connected to WebSocket server error");
+
+        }
+
+        //连接关闭
+        websocket.onclose = function (event) {
+            console.log('ws 连接被断开. ');
+            console.log(event)
+
+        }
+
+    }
+</script>
+</body>
+</html>
