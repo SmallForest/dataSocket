@@ -5,6 +5,8 @@
 */
 package logic
 
+import "log"
+
 type broadcaster struct {
 	users map[string]*User
 
@@ -38,12 +40,13 @@ func (b broadcaster) BroadcastMessage(receiveMsg map[string]string) {
 	to_user_token := receiveMsg["to_user_token"]
 	message := receiveMsg["message"]
 	if user_token == "" || to_user_token == "" || message == "" || b.users[user_token] == nil || b.users[to_user_token] == nil {
+		log.Println("消息格式错误")
+		log.Println(receiveMsg)
 		return
 	}
 
 	// 通过token寻找user 创建消息 msg
-	msg := CreateMessage(b.users[user_token], b.users[to_user_token], message)
-	b.messageChannel <- msg
+	b.messageChannel <- CreateMessage(b.users[user_token], b.users[to_user_token], message, "message")
 }
 
 // channel数据处理

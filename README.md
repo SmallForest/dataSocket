@@ -7,6 +7,12 @@
 - message结构体
 # 使用方式
 1. 连接websocket之后会立马接收到token，该socket链接唯一标识
+```javascript
+{"content":"1896d382-8cd5-466b-a3e5-5d955600c6d6","type":"token"}
+```
+type=message 或者 token  
+type=token时候content是token标识  
+type=message是发送的消息  
 2. 发送信息格式
 ```javascript
 setInterval(function () {

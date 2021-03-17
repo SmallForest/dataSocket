@@ -21,7 +21,7 @@ func main() {
 	http.HandleFunc("/ws", func(w http.ResponseWriter, req *http.Request) {
 		// conn是客户端连接
 		conn, err := websocket.Accept(w, req, &websocket.AcceptOptions{
-			InsecureSkipVerify:true,
+			InsecureSkipVerify: true,
 			//OriginPatterns: []string{"localhost:63342", "192.168.0.125:8080"},
 		})
 		if err != nil {
@@ -35,8 +35,7 @@ func main() {
 		// 开启给用户发送消息的goroutinue
 		go user.SendMessage(req.Context())
 
-		// 将用户token发给用户
-		user.PutMessage(logic.CreateMessage(user, user, user.GetToken()))
+		user.PutMessage(logic.CreateMessage(user, user, user.GetToken(), "token"))
 
 		// 将用户添加到广播器的用户列表
 		c := logic.Broadcaster.UserEntering(user)
@@ -60,6 +59,6 @@ func main() {
 	// 主业务处理协程
 	go logic.Broadcaster.Start()
 
-	log.Println("ws://localhost:2022/ws")
-	log.Fatal(http.ListenAndServe(":2022", nil))
+	log.Println("ws://localhost:2021/ws")
+	log.Fatal(http.ListenAndServe(":2021", nil))
 }

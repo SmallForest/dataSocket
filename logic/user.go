@@ -23,7 +23,7 @@ type User struct {
 创建新用户
 */
 func NewUser(conn_user *websocket.Conn) *User {
-	return &User{token: uuid.New().String(), conn: conn_user, MessageChannel: make(chan *Message,10)}
+	return &User{token: uuid.New().String(), conn: conn_user, MessageChannel: make(chan *Message, 10)}
 }
 
 // 获取token
@@ -35,12 +35,13 @@ func (u User) GetToken() string {
 func (u User) SendMessage(ctx context.Context) {
 	// 定义死循环
 	for msg := range u.MessageChannel {
-		_ = wsjson.Write(ctx, u.conn, msg.Content)
+		_ = wsjson.Write(ctx, u.conn, msg)
 	}
 }
+
 // 向message channel放信息
-func (u User) PutMessage(msg *Message)  {
-	u.MessageChannel<-msg
+func (u User) PutMessage(msg *Message) {
+	u.MessageChannel <- msg
 }
 
 //获取用户发过来的信息

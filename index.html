@@ -6,7 +6,8 @@
 </head>
 <body>
 <script>
-    var wsurl = 'ws://localhost:2022/ws';
+    // var wsurl = 'ws://localhost:2022/ws';
+    var wsurl = 'ws://test.h5.jinlianlian.com/ws';
     var websocket;
     if (window.WebSocket) {
         websocket = new WebSocket(wsurl);
@@ -20,6 +21,7 @@
         //收到消息
         websocket.onmessage = function (event) {
             console.log("接受到消息", event)
+            console.log(JSON.parse(event.data))
         }
 
         //发生错误
