@@ -63,6 +63,8 @@ func (u User) ReceiveMessage(ctx context.Context) error {
 		}
 		// 把消息放入到广播器，由广播器进行处理
 		Broadcaster.BroadcastMessage(receiveMsg)
+		//重置消息接收器，不然消息会堆叠
+		receiveMsg = nil
 	}
 }
 
