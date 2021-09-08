@@ -35,6 +35,7 @@ func main() {
 		// 开启给用户发送消息的goroutinue
 		go user.SendMessage(req.Context())
 
+		// 用户连接上就发送token信息
 		user.PutMessage(logic.CreateMessage(user, user, user.GetToken(), "token"))
 
 		// 将用户添加到广播器的用户列表
